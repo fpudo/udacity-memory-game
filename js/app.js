@@ -23,6 +23,8 @@ let minutes = 0;
 let seconds = 0;
 let totalSeconds = 0;
 
+let timer = setInterval(setTime, 1000);
+
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -39,15 +41,12 @@ function resetGame() {
   document.getElementById('moves').innerHTML = 0 + " Moves";
   document.getElementById('star-1').className = "fa fa-star";
   document.getElementById('star-2').className = "fa fa-star";
-  document.getElementById('star-3').className = "fa fa-star";
   const deck = document.getElementById('deck');
   deck.innerHTML = ""; // It clears the items before the shuffle
 }
 
 function displayCards() {
   resetGame();
-  setTime();
-  setInterval(setTime, 1000);
   const cards = cardsList.concat(cardsList);
   const shuffledCards = shuffle(cards);
 
@@ -87,7 +86,7 @@ function shuffle(array) {
 function selectCard(obj) {
   const icon = showCard(obj);
   count = addCardToOpenList(icon);
-  moveCounter();
+  if(openList[0] !== openList[1]) moveCounter();
   if(count == 2){
     stopClick(true);
     checkCards(openList[0], openList[1]);
@@ -111,7 +110,7 @@ function checkCards(card1, card2) {
   }else{
     setTimeout(function(){
       closeCard(card1, card2);
-    }, 500);
+    }, 1000);
   }
 }
 
@@ -149,10 +148,10 @@ function playerWins(pmatched) {
 }
 
 function moveCounter() {
-  moves++;
-  let moveDouble = moves / 2;
-  document.getElementById('moves').innerHTML = Math.floor(moveDouble) + " Moves";
-  removeStar(moveDouble);
+    moves++;
+    let moveDouble = moves / 2;
+    document.getElementById('moves').innerHTML = Math.floor(moveDouble) + " Moves";
+    removeStar(moveDouble);
 }
 
 function removeStar(pmoves) {

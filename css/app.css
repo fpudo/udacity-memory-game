@@ -86,8 +86,10 @@ h1 {
  */
 
 .score-panel {
-    text-align: left;
+    text-align: center;
     width: 345px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     margin-bottom: 10px;
 }
 
